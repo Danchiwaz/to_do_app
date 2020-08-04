@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+	<div class="row mt-4">
+		<div class="col">
+			<h1>Add Item</h1>
+			<!-- the for to capture your data -->
+			<form class="form-inline" action="add_todo/" method="POST">
+				{% csrf_token %}
+				<input type="text" class="form-control" name="content" placeholder="Type Here">
+				<button type="submit" class="btn btn-primary ml-3" onclick="return confirm('You are about to Submit')">Submit</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col">
+			<ul class="list-group">
+               {% for todo_item in todo_items %}
+
+				<li class="list-group-item d-flex align-items-center justify-content-between"><strong> {{ todo_item.text }}</strong>
+					<form action="delete_todo/{{todo_item.id}}/" method="POST">
+					{% csrf_token %} 
+						<button type="submit" class=" btn btn-danger btn-sm" onclick="return confirm('Are user to delete')">Delete</button>
+					</form>
+					
+				 </li>
+				 
+
+			   {% endfor %}	 
+				
+			</ul>
+		</div>
+	</div>
+
+
+{% endblock content %}
